@@ -4,7 +4,7 @@ FROM ubuntu:16.04
 RUN mkdir /config
 
 # Install dependencies
-RUN apt-get update && apt-get -y install build-essential cmake libuv1-dev uuid-dev nano
+RUN apt-get update && apt-get -y install build-essential cmake libuv1-dev uuid-dev libmicrohttpd-dev
 
 # Clean
 RUN rm -rf /var/lib/apt/lists/*
@@ -23,7 +23,7 @@ VOLUME /config
 RUN cp /opt/xmrig-proxy/src/config.json /config/config.json
 
 # Ports
-EXPOSE 7777
+EXPOSE 80 7777
 
 # Command
 CMD ["/opt/xmrig-proxy/build/xmrig-proxy", "-c", "/config/config.json"]
