@@ -10,7 +10,7 @@ RUN apt-get update && apt-get -y install build-essential cmake libuv1-dev uuid-d
 RUN rm -rf /var/lib/apt/lists/*
 
 # Get Code
-ADD https://github.com/xmrig/xmrig-proxy/archive/v2.4.0.tar.gz /opt/xmrig-proxy.tar.gz
+ADD https://github.com/xmrig/xmrig-proxy/archive/v2.4.2.tar.gz /opt/xmrig-proxy.tar.gz
 RUN mkdir /opt/xmrig-proxy
 RUN tar xfv /opt/xmrig-proxy.tar.gz --strip 1 -C /opt/xmrig-proxy
 RUN mkdir /opt/xmrig-proxy/build
