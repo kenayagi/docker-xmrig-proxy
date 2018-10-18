@@ -4,7 +4,7 @@ FROM ubuntu:16.04
 RUN mkdir /config
 
 # Install dependencies
-RUN apt-get update && apt-get -y install build-essential cmake libuv1-dev uuid-dev libmicrohttpd-dev
+RUN apt-get update && apt-get -y install build-essential cmake libuv1-dev uuid-dev libmicrohttpd-dev libssl-dev
 
 # Clean
 RUN rm -rf /var/lib/apt/lists/*
