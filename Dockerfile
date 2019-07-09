@@ -1,22 +1,30 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # Prepare directories
 RUN mkdir /config
 
 # Install dependencies
-RUN apt-get update && apt-get -y install build-essential cmake libuv1-dev uuid-dev libmicrohttpd-dev libssl-dev
+RUN apt update && apt -y upgrade && apt -y install \
+    build-essential \
+    cmake \
+    git \
+    libmicrohttpd-dev \
+    libssl-dev \
+    libuv1-dev \
+    uuid-dev
 
 # Clean
 RUN rm -rf /var/lib/apt/lists/*
 
 # Get Code
-ADD https://github.com/xmrig/xmrig-proxy/archive/v2.8.1.tar.gz /opt/xmrig-proxy.tar.gz
-RUN mkdir /opt/xmrig-proxy
-RUN tar xfv /opt/xmrig-proxy.tar.gz --strip 1 -C /opt/xmrig-proxy
-RUN mkdir /opt/xmrig-proxy/build
-WORKDIR /opt/xmrig-proxy/build
-RUN cmake .. -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib/x86_64-linux-gnu/libuv.a
-RUN make
+WORKDIR /opt
+RUN git clone https://github.com/xmrig/xmrig-proxy && \
+    cd xmrig-proxy && \
+    git checkout v2.14.4 && \
+    sed -i "/^constexpr const int kDefaultDonateLevel = 2;/c\constexpr const int kDefaultDonateLevel = 0;" src/donate.h && \
+    mkdir build && \
+    cmake -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib/x86_64-linux-gnu/libuv.a . && \
+    make
 
 # Volume
 VOLUME /config
