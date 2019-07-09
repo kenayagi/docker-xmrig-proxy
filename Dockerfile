@@ -34,4 +34,4 @@ RUN cp /opt/xmrig-proxy/src/config.json /config/config.json
 EXPOSE 80 7777
 
 # Command
-CMD ["/opt/xmrig-proxy/build/xmrig-proxy", "-c", "/config/config.json"]
+CMD ["/opt/xmrig-proxy/xmrig-proxy", "-c", "/config/config.json"]
