@@ -4,23 +4,21 @@ FROM ubuntu:18.04
 RUN mkdir /config
 
 # Install dependencies
-RUN apt update && apt -y upgrade && apt -y install \
+RUN apt update && apt -y install \
     build-essential \
     cmake \
     git \
     libmicrohttpd-dev \
     libssl-dev \
     libuv1-dev \
-    uuid-dev
-
-# Clean
-RUN rm -rf /var/lib/apt/lists/*
+    uuid-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Get Code
 WORKDIR /opt
 RUN git clone https://github.com/xmrig/xmrig-proxy && \
     cd xmrig-proxy && \
-    git checkout v2.14.4 && \
+    git checkout v5.9.0 && \
     sed -i "/^constexpr const int kDefaultDonateLevel = 2;/c\constexpr const int kDefaultDonateLevel = 0;" src/donate.h && \
     mkdir build && \
     cmake -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib/x86_64-linux-gnu/libuv.a . && \
