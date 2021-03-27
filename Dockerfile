@@ -18,7 +18,7 @@ RUN apt update && apt -y install \
 WORKDIR /opt
 RUN git clone https://github.com/xmrig/xmrig-proxy && \
     cd xmrig-proxy && \
-    git checkout v5.9.0 && \
+    git checkout v6.10.1 && \
     sed -i "/^constexpr const int kDefaultDonateLevel = 2;/c\constexpr const int kDefaultDonateLevel = 0;" src/donate.h && \
     mkdir build && \
     cmake -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib/x86_64-linux-gnu/libuv.a . && \
